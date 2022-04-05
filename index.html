@@ -7,13 +7,21 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div style="align-items: center; text-align: center;">
-      <h1>Conversor RSA</h1>
-      <h4>Bruno, Caroline, Camila, Diógenes</h6>
+    <div class = "page-style">
+      <div style="align-items: center; text-align: center;">
+        <h1>Conversor RSA</h1>
+        <h4>Bruno, Caroline, Camila, Diógenes</h6>
+      </div>
+      <div class="body-style">
+        <form action="/action_page.php">
+          <label for="firstInput">Insira aqui a frase para conversão:</label>
+          <input type="text" id="firstInput" name="firstInput"><br><br>
+          <input class = "submit-button" type="submit" value="Submit">
+          <p>Resultado da conversão:</p>
+          <p>{resultado teste aqui}</p>
+        </form>
+      </div>
+      <script src="script.js"></script>
     </div>
-    
-    <div class="menu-style">
-    </div>
-    <script src="script.js"></script>
   </body>
 </html>
