@@ -1,6 +1,20 @@
-.page-style{
-  background-color: white;
+html { 
+  background: #FAFAFA no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+}
+
+h1, h4, p, .label-style{
+  color: #666F80
+}
+
+.title-style{
+  display:block;
+  text-align: center;
+  margin: 2rem;
 }
 
 .body-style{
@@ -8,11 +22,45 @@
   display:flex;
   justify-content: center;
   text-align: center;
+  margin: 2rem;
+}
+
+.label-style{
+  display: block;
+}
+
+.input-style{
+  display: block;
+  margin: auto;
+  margin-top: 1.5rem;
+  height: 2rem;
+  width: 40rem;
+  border: solid;
+  border-color: #666F80; 
+  border-width: thin;
+  border-radius: 0.5rem;
+  focus: none;
+  font-size: 1rem;
+  padding: 0.3rem;
+  padding-left: 0.5rem;
+  -webkit-box-shadow: 9px 7px 7px -3px rgba(0,0,0,0.15); 
+  box-shadow: 9px 7px 7px -3px rgba(0,0,0,0.15);
+}
+
+input:focus{
+    outline: none;
 }
 
 .submit-button{
   background-color: #FE5F55;
-  border-radius: 0.5rem;
-  height: 2rem;
-  width: 5rem;
+  color: white;
+  font-weight: normal;
+  border-radius: 1.5rem;
+  height: 2.5rem;
+  width: 6rem;
+  border: none;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  -webkit-box-shadow: 9px 7px 7px -3px rgba(0,0,0,0.15); 
+  box-shadow: 9px 7px 7px -3px rgba(0,0,0,0.15);
 }
