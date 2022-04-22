@@ -1,21 +1,27 @@
-var form = document.getElementById('formulario');
-var campo = document.getElementById('campo');
+var form = document.getElementById('form');
+var firstInput = document.getElementById('firstInput');
+var result = document.getElementById('result');
 
-const vTotal = 100
+const vTotal = 20
 
 form.addEventListener('submit', function(k) {
     let ascii_code = '';
     let total = 0
     let gravaValores = [];
     let p, q, n, z, e, d, numZ1, numZ2;
-    // alerta o valor do campo
-    //alert(campo.value);
-    //console.log(campo.value);
-    total = campo.value.length;
+    // alerta o valor do firstInput
+    //alert(firstInput.value);
+    //console.log(firstInput.value);
+    total = firstInput.value.length;
     //console.log(total)
 
+    if(firstInput.value.length == 0 || firstInput.value.length == null){
+      window.alert('[Erro] verifique os dados e tente novamente!!!');
+      return false;
+    }
+
     for (let i = 0; i < total; i++) {
-      ascii_code = campo.value.charCodeAt(i);
+      ascii_code = firstInput.value.charCodeAt(i);
       //console.log(ascii_code);
 
       gravaValores.push(ascii_code)
@@ -35,17 +41,11 @@ form.addEventListener('submit', function(k) {
     e = generate_e(z);
     d = generate_private_key(e, z);
 
-    geraCrip()
-    // console.log(e);
-    // console.log(d);
+    chavecrip = crip(e, n, gravaValores);
 
-    // console.log(p);
-    // console.log(q);
-    // console.log(numZ1);
-    // console.log(numZ2);
-    // console.log(numZ1*numZ2);
-    //console.log(z);
-
+    result.style.textAlign = 'center';
+    result.innerHTML = `${chavecrip}`;
+    //result.innerHTML = `${d}`
   
     // impede o envio do form
     k.preventDefault();
@@ -119,11 +119,16 @@ function geraZ(n){
 
 //Gera o valor de D
 function generate_private_key(E, Z){
-  let d = 0;
+  let d=0;
+
+  // alert('numero: '+ d.toString())
+  // alert(E)
+  // alert(Z)
   
   while(mod(d*E, Z) != 1){
     d++;
   }
+
   return d;
 }
 
@@ -132,4 +137,24 @@ function mod(x, y){
     return x;
   }
   return x%y;
+}
+
+function crip(e, n, gravaValores){
+  let cript;
+  var chave=[];
+  
+  // alert(e)
+  // alert(n)
+  alert(gravaValores)
+
+  for (let i = 0; i < gravaValores.length; i++) {
+  
+    cript = Math.pow(gravaValores[i], e);
+    cript = mod(cript, n);
+    chave.push(cript);
+  }
+
+
+  chv = chave.join('')
+  return chv;
 }

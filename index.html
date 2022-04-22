@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>replit</title>
+    <title>RSAconversor</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
@@ -14,13 +14,15 @@
       </div>
       <hr>
       <div class="body-style">
-        <form action="/action_page.php">
+        
+        <form id="form">
           <label for="firstInput" class="label-style">Insira aqui a frase para conversão:</label>
           <input type="text" id="firstInput" name="firstInput" class="input-style">
-          <input class = "submit-button" type="submit" value="Converter">
+          <input class="submit-button" type="submit" value="Converter">
           <p>Resultado da conversão:</p>
-          <p>{resultado teste aqui}</p>
+          <p id="result">{resultado teste aqui}</p>
         </form>
+
       </div>
       <script src="script.js"></script>
     </div>
