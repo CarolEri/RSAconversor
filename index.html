@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>RSAconversor</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <div>
-      <div class="title-style">
-        <h1>Conversor RSA</h1>
-        <h4>Bruno, Caroline, Camila, Diógenes</h6>
-      </div>
-      <hr>
-      <div class="body-style">
-        
-        <form id="form">
-          <label for="firstInput" class="label-style">Insira aqui a frase para conversão:</label>
-          <input type="text" id="firstInput" name="firstInput" class="input-style">
-          <input class="submit-button" type="submit" value="Converter">
-          <p>Resultado da conversão:</p>
-          <p id="result">{resultado teste aqui}</p>
-        </form>
 
-      </div>
-      <script src="script.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Conversor RSA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <h1 class="title-style">
+        Conversor RSA
+      </h1>
     </div>
-  </body>
+  </nav>
+  <form id="form">
+    <input type="text" id="firstInput" placeholder="Insira aqui a frase para conversão:" name="firstInput"
+    maxlength="60" class="input-style" required>
+    <button type="reset" id="submit-button" class="btn btn-outline-custom-limpar" value="Converter">Limpar</button>
+    <button type="submit" id="submit-button" class="btn btn-outline-custom" value="Converter">Criptografar</button>
+    <h2 class="sub-title">Resultado</h2>
+    <textarea type="textarea" id="result" placeholder="Resultado..." class="textarea" disabled=""></textarea>
+    </div>
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-custom-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Sobre
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sobre o Projeto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Alunos:  Bruno, Camila, Caroline e Diogenes</b>
+        <br>
+        <br>
+        <p>O Projeto "Conversor RSA" foi desenvolvido pelos alunos do 5°semestre do curso de <b>Análise e desenvolvimento de sistema</b> para a matéria de Segurança da Informação ministrado pelo professor <b>Carlos Euzébio</b></p>
+      </div>
+    </div>
+  </div>
+</div>
+  </form>
+  <script src="script.js"></script>
+  </div>
+</body>
+
 </html>
