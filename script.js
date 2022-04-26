@@ -21,13 +21,13 @@ form.addEventListener('submit', function(k) {
 
     p = generate_prime();
     q = generate_prime();
-    n = p*q; 
+    n = 391; 
     numZ1 = geraZ(p); 
     numZ2 = geraZ(q);
     z = numZ1*numZ2; 
 
-    e = generate_e(z);
-    d = generate_private_key(e, z);
+    e = 3;
+    d = 235;
 
     chavecrip = crip(e, n, gravaValores, d);
 
@@ -63,13 +63,11 @@ function isPrime(n){
   return true;
 }
 
-
 function generate_e(Z){
   let generated;
   
   while(true){
     generated = Math.floor(Math.random() * ((Z-2) + 1) + 2);
-    
     
     if(mdc(Z, generated) == 1){
       return generated;
@@ -116,39 +114,46 @@ function crip(e, n, gravaValores, d){
   var chave=[];
 
   for (let i = 0; i < gravaValores.length; i++) {
-  
+
     cript = Math.pow(gravaValores[i], e);
     cript = mod(cript.toFixed(2), n);
     chave.push(cript);
   }
 
   chaveDescript = descrip(d, n, chave)
-  //console.log(chaveDescript = descrip(d, n, chave));
-
   chv = chave.join('')
-  //chaveDescript = descrip(d, n, chave)
+
   return chv;
+}
+
+function cdn(chave, d, n) 
+{
+  var value = 1;
+  while (d > 0) {
+    value *= chave;
+    value %= n;
+    d--;
+    console.log(value);
+  }
+  return value;
 }
 
 function descrip(d, n, chave){
   let descritp;
-  let chvDescritp=[];
+  let chaveDescript=[];
   let gravaLetras=[];
   let char;
   let chvDescript;
 
   for (let i = 0; i < chave.length; i++) {
-    descritp = Math.pow(chave[i], d);
-    descritp = mod(descritp.toFixed(2), n);
-    chvDescritp.push(descritp);
+    descript = cdn(chave[i], d, n);
+    chaveDescript.push(descript);
   };
 
-  for (let w = 0; w < chvDescritp.length; w++) {
-    char = String.fromCharCode(chvDescritp[w]);
+  for (let w = 0; w < chaveDescript.length; w++) {
+    char = String.fromCharCode(chaveDescript[w]);
     gravaLetras.push(char);
   };
-
-  alert(gravaLetras);
 
   chvDescript = gravaLetras.join('');
   return chvDescript;
