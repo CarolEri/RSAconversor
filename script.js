@@ -1,6 +1,7 @@
 var form = document.getElementById('form');
 var firstInput = document.getElementById('firstInput');
 var result = document.getElementById('result');
+var resultDescript = document.getElementById('resultDescript');
 
 const vTotal = 20
 
@@ -14,7 +15,7 @@ form.addEventListener('submit', function(k) {
 
     for (let i = 0; i < total; i++) {
       ascii_code = firstInput.value.charCodeAt(i);
-      gravaValores.push(ascii_code)
+      gravaValores.push(ascii_code);
 
     }
 
@@ -28,10 +29,13 @@ form.addEventListener('submit', function(k) {
     e = generate_e(z);
     d = generate_private_key(e, z);
 
-    chavecrip = crip(e, n, gravaValores);
+    chavecrip = crip(e, n, gravaValores, d);
 
     result.style.textAlign = 'center';
     result.innerHTML = `${chavecrip}`;
+
+    resultDescript.style.textAlign = 'center';
+    resultDescript.innerHTML = `${chaveDescript}`;
     k.preventDefault();
 });
 
@@ -107,17 +111,45 @@ function mod(x, y){
   return x%y;
 }
 
-function crip(e, n, gravaValores){
+function crip(e, n, gravaValores, d){
   let cript;
   var chave=[];
 
   for (let i = 0; i < gravaValores.length; i++) {
   
     cript = Math.pow(gravaValores[i], e);
-    cript = mod(cript, n);
+    cript = mod(cript.toFixed(2), n);
     chave.push(cript);
   }
 
+  chaveDescript = descrip(d, n, chave)
+  //console.log(chaveDescript = descrip(d, n, chave));
+
   chv = chave.join('')
+  //chaveDescript = descrip(d, n, chave)
   return chv;
+}
+
+function descrip(d, n, chave){
+  let descritp;
+  let chvDescritp=[];
+  let gravaLetras=[];
+  let char;
+  let chvDescript;
+
+  for (let i = 0; i < chave.length; i++) {
+    descritp = Math.pow(chave[i], d);
+    descritp = mod(descritp.toFixed(2), n);
+    chvDescritp.push(descritp);
+  };
+
+  for (let w = 0; w < chvDescritp.length; w++) {
+    char = String.fromCharCode(chvDescritp[w]);
+    gravaLetras.push(char);
+  };
+
+  alert(gravaLetras);
+
+  chvDescript = gravaLetras.join('');
+  return chvDescript;
 }

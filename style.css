@@ -82,10 +82,10 @@ input:focus{
 .textarea{
   display: block;
   margin: auto;
-  width: 50rem;
+  width: 40rem;
   background-color: white;
   margin-top: 1.5rem;
-  height: 150px; 
+  height: 50; 
   resize: none;
   border-color: #61409E; 
   border-width: thin;
