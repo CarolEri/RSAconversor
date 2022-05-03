@@ -3,13 +3,13 @@ var firstInput = document.getElementById('firstInput');
 var result = document.getElementById('result');
 var resultDescript = document.getElementById('resultDescript');
 
-const vTotal = 20
+const primeNumber = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
-form.addEventListener('submit', function(k) {
+form.addEventListener('submit', function(_k) {
     let ascii_code = '';
     let total = 0
     let gravaValores = [];
-    let p, q, n, z, e, d, numZ1, numZ2;
+    let p, q, n, z, e, d;
 
     total = firstInput.value.length;
 
@@ -19,16 +19,32 @@ form.addEventListener('submit', function(k) {
 
     }
 
-    p = generate_prime();
-    q = generate_prime();
-    n = 391; 
-    numZ1 = geraZ(p); 
-    numZ2 = geraZ(q);
-    z = numZ1*numZ2; 
 
-    e = 3;
-    d = 235;
+    /*
+    p = primeNumber[Math.floor(Math.random() * primeNumber.length)]
 
+    do{
+      q = primeNumber[Math.floor(Math.random() * primeNumber.length)]
+    } while (q==p)
+    */
+
+
+    //Quanto maior o valor de P(23) e Q(17), mais tempo demora para quebrar a chave privada.
+    p=23
+    q=17
+
+    n = p*q; 
+
+    z = (p-1)*(q-1); 
+
+    /*
+    e = generate_e(z);
+    d = generate_private_key(e, z)
+    */
+
+    e = 3; // Numero maior que 1 e menor que T, primo
+    d = 235; // Inverso multiplicativo modular
+  
     chavecrip = crip(e, n, gravaValores, d);
 
     result.style.textAlign = 'center';
@@ -36,41 +52,18 @@ form.addEventListener('submit', function(k) {
 
     resultDescript.style.textAlign = 'center';
     resultDescript.innerHTML = `${chaveDescript}`;
-    k.preventDefault();
+    _k.preventDefault();
 });
 
-function generate_prime(){
-  let e;
-  
-  do
-    e = Math.floor(Math.random() * vTotal);
-  while(!isPrime(e));
 
-  return e;
-}
-
-function isPrime(n){
-  if (n <= 1)  return false;
-  if (n <= 3)  return true;
-
-  if (n%2 == 0 || n%3 == 0) return false;
-
-  for (let i = 5; i*i<=n; i=i+6){
-        if (n%i == 0 || n%(i+2) == 0)
-           return false;
-  }
-    
-  return true;
-}
-
-function generate_e(Z){
-  let generated;
+function generate_e(z){
+  let var_e;
   
   while(true){
-    generated = Math.floor(Math.random() * ((Z-2) + 1) + 2);
+    var_e = Math.floor(Math.random() * ((z-2) + 1) + 2);
     
-    if(mdc(Z, generated) == 1){
-      return generated;
+    if(mdc(z, var_e) == 1){
+      return var_e;
     }
   }
 }
@@ -85,20 +78,15 @@ function mdc(x, y){
     return x;
 }
 
-function geraZ(n){
-  if( isPrime(n) ){
-    return n - 1;
-  }
-  alert("Erro de número primo");
-}
 
-function generate_private_key(E, Z){
+function generate_private_key(e, z){
   let d=0;
   
-  while(mod(d*E, Z) != 1){
+  while(mod((d*e), z) != 1){
     d++;
   }
 
+  //console.log(d)
   return d;
 }
 
@@ -116,7 +104,9 @@ function crip(e, n, gravaValores, d){
   for (let i = 0; i < gravaValores.length; i++) {
 
     cript = Math.pow(gravaValores[i], e);
-    cript = mod(cript.toFixed(2), n);
+    cript = mod(cript.toFixed(0), n);
+    console.log(typeof(cript));
+    //cript = mod(cript, n);
     chave.push(cript);
   }
 
@@ -125,6 +115,31 @@ function crip(e, n, gravaValores, d){
 
   return chv;
 }
+
+
+function descrip(d, n, chave){
+  let descript;
+  let chaveDescript=[];
+  let gravaLetras=[];
+  let char;
+  let chvDescript;
+
+  for (let i = 0; i < chave.length; i++) {
+    descript = cdn(chave[i], d, n);
+    //descript = Math.pow(gravaValores[i], d);
+    //descript = mod(descript, n);
+    chaveDescript.push(descript);
+  };
+
+  for (let w = 0; w < chaveDescript.length; w++) {
+    char = String.fromCharCode(chaveDescript[w]);
+    gravaLetras.push(char);
+  };
+
+  chvDescript = gravaLetras.join('');
+  return chvDescript;
+}
+
 
 function cdn(chave, d, n) 
 {
@@ -136,25 +151,4 @@ function cdn(chave, d, n)
     console.log(value);
   }
   return value;
-}
-
-function descrip(d, n, chave){
-  let descritp;
-  let chaveDescript=[];
-  let gravaLetras=[];
-  let char;
-  let chvDescript;
-
-  for (let i = 0; i < chave.length; i++) {
-    descript = cdn(chave[i], d, n);
-    chaveDescript.push(descript);
-  };
-
-  for (let w = 0; w < chaveDescript.length; w++) {
-    char = String.fromCharCode(chaveDescript[w]);
-    gravaLetras.push(char);
-  };
-
-  chvDescript = gravaLetras.join('');
-  return chvDescript;
 }
