@@ -19,31 +19,29 @@ form.addEventListener('submit', function(_k) {
 
     }
 
-
-    /*
+    //Pego os numeros primos do array para P e Q
     p = primeNumber[Math.floor(Math.random() * primeNumber.length)]
 
     do{
       q = primeNumber[Math.floor(Math.random() * primeNumber.length)]
     } while (q==p)
-    */
-
-
+    
     //Quanto maior o valor de P(23) e Q(17), mais tempo demora para quebrar a chave privada.
-    p=23
-    q=17
+    // p=23
+    // q=17
 
     n = p*q; 
-
     z = (p-1)*(q-1); 
 
-    /*
     e = generate_e(z);
     d = generate_private_key(e, z)
-    */
 
-    e = 3; // Numero maior que 1 e menor que T, primo
-    d = 235; // Inverso multiplicativo modular
+
+    //Mostro os valores de cada variavel antes de efetuar a criptografia
+    window.alert('Valores das variaveis: p='+p+' q='+q+' n='+n+' e='+e+' d='+d)
+  
+    // e = 3; // Numero maior que 1 e menor que T, primo
+    // d = 235; // Inverso multiplicativo modular
   
     chavecrip = crip(e, n, gravaValores, d);
 
@@ -55,7 +53,7 @@ form.addEventListener('submit', function(_k) {
     _k.preventDefault();
 });
 
-
+//Função para gerar o D
 function generate_e(z){
   let var_e;
   
@@ -68,6 +66,7 @@ function generate_e(z){
   }
 }
 
+//Função MDC
 function mdc(x, y){
     let rest = 1;
     while(y != 0){
@@ -78,7 +77,7 @@ function mdc(x, y){
     return x;
 }
 
-
+//Função para gerar o E
 function generate_private_key(e, z){
   let d=0;
   
@@ -90,6 +89,7 @@ function generate_private_key(e, z){
   return d;
 }
 
+//Função para fazer o MOD = resto da divisão
 function mod(x, y){
   if(x < y){
     return x;
@@ -97,16 +97,21 @@ function mod(x, y){
   return x%y;
 }
 
+
+
+/*---------------------------------------------------------------------*
+ | Criptografar                                                        | 
+ *---------------------------------------------------------------------*/
 function crip(e, n, gravaValores, d){
   let cript;
   var chave=[];
 
   for (let i = 0; i < gravaValores.length; i++) {
 
-    cript = Math.pow(gravaValores[i], e);
-    cript = mod(cript.toFixed(0), n);
-    console.log(typeof(cript));
-    //cript = mod(cript, n);
+    //cript = Math.pow(gravaValores[i], e);
+    //cript = mod(cript.toFixed(0), n);
+    //console.log(typeof(cript));
+    cript = cdn(gravaValores[i], e, n);
     chave.push(cript);
   }
 
@@ -117,6 +122,24 @@ function crip(e, n, gravaValores, d){
 }
 
 
+// function cdnCript(gravaValores, e, n) 
+// {
+//   var value = 1;
+//   while (e > 0) {
+//     value *= gravaValores;
+//     value %= n;
+//     e--;
+//     console.log(value);
+//   }
+//   return value;
+// }
+
+
+
+
+/*---------------------------------------------------------------------*
+ | Descriptografar                                                     | 
+ *---------------------------------------------------------------------*/
 function descrip(d, n, chave){
   let descript;
   let chaveDescript=[];
@@ -141,14 +164,22 @@ function descrip(d, n, chave){
 }
 
 
-function cdn(chave, d, n) 
+
+/*--------------------------------------------------------------*
+ | Função que faz o calculo:                                    |
+ | TEXTO CRIPTOGRAFADO = (TEXTO ORIGINAL ^ E) mod N             |
+ | TEXTO ORIGINAL = (TEXTO CRIPTOGRAFADO ^ D) mod N             |
+ |                                                              |
+ | X é um parâmetro obrigatório, sendo ele as variaveis E ou D  |
+ *--------------------------------------------------------------*/
+function cdn(chave, X, n) 
 {
   var value = 1;
-  while (d > 0) {
+  while (X > 0) {
     value *= chave;
     value %= n;
-    d--;
-    console.log(value);
+    X--;
+    //console.log(value);
   }
   return value;
 }
